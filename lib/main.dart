@@ -21,6 +21,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      onGenerateRoute: (settings) {
+
+      },
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MainScreen(),
+        //'/detail' : (context) => DetailScreen(candi: candi),
+        '/sign_in': (context) => SignInScreen(),
+        '/sign_up': (context) => SignUpScreen(),
+      },
       debugShowCheckedModeBanner: false,
       title: 'Wisata Candi Indonesia',
       theme: ThemeData(
@@ -44,7 +54,8 @@ class MyApp extends StatelessWidget {
       // home: SignInScreen(),
       // home: SearchScreen(),
       // home: HomeScreen(),
-      home: SignUpScreen(),
+      // home: SignUpScreen(),
+      // home: MainScreen(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({super.key});
@@ -18,9 +19,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   // TODO: 1. Membuat metode sign up
   void _signUp() async {
-    String name = _fullnameController.text.trim();
-    String username = _usernameController.text.trim();
-    String password = _passwordController.text.trim();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String name = _fullnameController.text.trim();
+    final String username = _usernameController.text.trim();
+    final String password = _passwordController.text.trim();
 
     if(password.length < 8 ||
         !password.contains(RegExp(r'[A-Z]')) ||
@@ -28,16 +30,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
         !password.contains(RegExp(r'[0-9]')) ||
         !password.contains(RegExp(r'[!@#$%^&*():{}<>]'))){
       setState(() {
-        _errorText = 'Minimal 8 karakter, kombinasi [A-Z], [a-z], [0-9], !@#\\\$%^&*():{}<>';
+        _errorText =
+        'Minimal 8 karakter, kombinasi [A-Z], [a-z], [0-9], !@#\\\$%^&*():{}<>';
       });
       return;
-    };
+    }
+    // simpan data pengguna di SharedPreferences
+    prefs.setString('fullname', name);
+    prefs.setString('username', username);
+    prefs.setString('password', password);
 
-    print('*** Sign up berhasil!');
-    print('fullname:$name');
-    print('username: $username');
-    print('password: $password');
-
+    // buat navigasi ke SignInScreen
+    Navigator.pushReplacementNamed(context, '/sign_in');
   }
 
   // TODO: 2. Membuat metode dispose
