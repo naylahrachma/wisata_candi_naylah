@@ -4,7 +4,6 @@ import 'package:wisata_candi/models/candi.dart';
 
 class DetailScreen extends StatelessWidget {
   Candi candi;
-
   DetailScreen({super.key, required this.candi});
 
   @override
